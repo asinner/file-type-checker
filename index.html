@@ -5,9 +5,58 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Type Checker</title>
+    <script id='script'>
+        function onChange(self, event) {
+            try {
+                var file = event.target.files[0];
+                if (file) {
+                    displayResults('File type is: ' + file.type)                
+                } else {
+                    displayResults('File not selected')
+                }
+            } catch (e) {
+                console.error(e);
+                alert('An error occurred trying to read the file type. Please check the console for more details.')
+            }
+        }
+
+        function displayResults(msg) {
+            var res = document.getElementById('type');
+            res.innerHTML = msg;
+        }
+    </script>
+
+    <style>
+        html {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .form {
+            display: flex;
+        }
+        .col {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+            margin: 8px;
+            
+        }
+    </style>
 </head>
 <body>
     <h1>File type checker</h1>
-    <input type='file'>
+    <p>Displays the <a href='https://developer.mozilla.org/en-US/docs/Web/API/File/type'>MIME</a> type of the HTML File object you choose.</p>
+
+    <div class='form'>
+        <div class='col'>
+            <input type='file' onchange="onChange(this, event)">
+        </div>
+        <div class='col'>
+            <div id='type'></div>
+        </div>
+    </div>
+
 </body>
 </html>
